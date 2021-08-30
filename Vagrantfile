@@ -16,5 +16,12 @@ Vagrant.configure("2") do |config|
     vb.memory = "4096"
     vb.cpus = 4
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
-  end
+
+  config.vm.define "master" do |master|
+    # Do stuff
+    for p in 30000..32767 # expose NodePort IP's
+      master.vm.network "forwarded_port", guest: p, host: p, protocol: "tcp"
+    end
+    end
+    end
 end
